@@ -222,6 +222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _prefabToSpawn: {fileID: 1756918819057348377, guid: 2c0f3883d73269b458c272125f456aa0, type: 3}
   _cam: {fileID: 634266270}
+  _nombreMaxDObjets: 10
 --- !u!1 &1144397264
 GameObject:
   m_ObjectHideFlags: 0
