@@ -10,7 +10,6 @@ public class SpawnCube : MonoBehaviour
     [SerializeField] private List<GameObject> _objectsSpawned;
     [SerializeField] private int _nombreMaxDObjets;
     
-
     private GameObject _tempGameObject;
 
     private void Start()
