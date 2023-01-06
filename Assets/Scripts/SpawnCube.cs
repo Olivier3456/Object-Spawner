@@ -4,33 +4,35 @@ using UnityEngine;
 
 public class SpawnCube : MonoBehaviour
 {
-
-    [SerializeField] private GameObject _prefabToSpawn;
-
     [SerializeField] private Camera _cam;
-
+       
+    [SerializeField] private GameObject _prefabToSpawn;
+    [SerializeField] private List<GameObject> _objectsSpawned;
     [SerializeField] private int _nombreMaxDObjets;
-    private int _nombreDObjets;
+    private int _indexObjects = 0;
 
-    // Start is called before the first frame update
-    void Start()
+
+    private void Start()
     {
-        
+        _nombreMaxDObjets--;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-
-
-        if (Input.GetMouseButtonDown(0) && _nombreDObjets < _nombreMaxDObjets)
+        if (Input.GetMouseButtonDown(0))
         {
             Vector3 positionObjectToSpawn = _cam.ScreenToWorldPoint(
                 new Vector3(Input.mousePosition.x, Input.mousePosition.y, 25));
 
-            Instantiate(_prefabToSpawn, positionObjectToSpawn, Quaternion.identity);
-            _nombreDObjets++;
-        }
-        else if (_nombreDObjets >= _nombreMaxDObjets) Debug.Log("Nombre maximum d'objets atteint :" + _nombreDObjets);
+            if (_objectsSpawned.Count > _nombreMaxDObjets)
+            {
+                Destroy(_objectsSpawned[_nombreMaxDObjets]);           
+                _indexObjects = _nombreMaxDObjets;
+            }
+
+            _objectsSpawned.Insert(0, Instantiate(_prefabToSpawn, positionObjectToSpawn, Quaternion.identity));
+            _indexObjects++;
+        }    
     }
 }
