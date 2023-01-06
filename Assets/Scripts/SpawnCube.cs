@@ -5,12 +5,13 @@ using UnityEngine;
 public class SpawnCube : MonoBehaviour
 {
     [SerializeField] private Camera _cam;
-       
+
     [SerializeField] private GameObject _prefabToSpawn;
     [SerializeField] private List<GameObject> _objectsSpawned;
     [SerializeField] private int _nombreMaxDObjets;
-    private int _indexObjects = 0;
+    
 
+    private GameObject _tempGameObject;
 
     private void Start()
     {
@@ -27,12 +28,18 @@ public class SpawnCube : MonoBehaviour
 
             if (_objectsSpawned.Count > _nombreMaxDObjets)
             {
-                Destroy(_objectsSpawned[_nombreMaxDObjets]);           
-                _indexObjects = _nombreMaxDObjets;
-            }
+                _tempGameObject = _objectsSpawned[_nombreMaxDObjets];
+                _tempGameObject.transform.position = positionObjectToSpawn;
 
-            _objectsSpawned.Insert(0, Instantiate(_prefabToSpawn, positionObjectToSpawn, Quaternion.identity));
-            _indexObjects++;
-        }    
+                _objectsSpawned.Remove(_objectsSpawned[_nombreMaxDObjets]);
+
+                _objectsSpawned.Insert(0, _tempGameObject);
+            }
+            else
+            {
+                _objectsSpawned.Insert(0, Instantiate(_prefabToSpawn, positionObjectToSpawn, Quaternion.identity));
+            }
+            
+        }
     }
 }
