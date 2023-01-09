@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Spawner : MonoBehaviour
 {
@@ -8,26 +9,25 @@ public class Spawner : MonoBehaviour
 
     [SerializeField] GameObject _prefabToSpawn;
 
-    private Transform _centreDeLaZoneDeSpawn;
     [SerializeField] private float _rayonDeLaZoneDeSpawn;
 
     [SerializeField] private List<GameObject> _objectsSpawned;
     [SerializeField] private int _nombreMaxDObjets;
     private GameObject _tempGameObject;
-    
+
     private float _time;
 
     void Start()
     {
         _nombreMaxDObjets--;
-
-        _centreDeLaZoneDeSpawn = transform;       
     }
 
-    
+
     void Update()
     {
-        _time += Time.deltaTime;
+        if (_nbreDObjetsParSeconde <= 0f) return;
+
+        _time += Time.deltaTime;     
 
         if (_time >= (1 / _nbreDObjetsParSeconde))
         {
@@ -52,19 +52,31 @@ public class Spawner : MonoBehaviour
         _objectsSpawned.RemoveAt(0);
 
         _objectsSpawned.Add(_tempGameObject);
+        SetRandomColor(_objectsSpawned[_nombreMaxDObjets].transform);
     }
 
     private void InstantiateNewObject()     // Avec couleur aléatoire.
     {
         _objectsSpawned.Add(Instantiate(_prefabToSpawn, NewRandomPosition(), Quaternion.identity));
 
-        Color newColor = new Color(Random.Range(0, 1.0f), Random.Range(0, 1.0f), Random.Range(0, 1.0f));
-        _objectsSpawned[_objectsSpawned.Count - 1].GetComponent<Renderer>().material.color = newColor;
+        SetRandomColor(_objectsSpawned[_objectsSpawned.Count - 1].transform);
+
         _objectsSpawned[_objectsSpawned.Count - 1].AddComponent<ObjectBehavior>();
     }
 
-    private Vector3 NewRandomPosition()     // Position aléatoire dans une sphère qui a pour position _centreDeLaZoneDeSpawn :
+    private void SetRandomColor(Transform objectToRecolor)
     {
-        return Random.insideUnitSphere * _rayonDeLaZoneDeSpawn + _centreDeLaZoneDeSpawn.position;
+        //   Color newColor = new Color(Random.Range(0, 1.0f), Random.Range(0, 1.0f), Random.Range(0, 1.0f));  Une fonction existe pour la couleur aléatoire :
+
+        objectToRecolor.GetComponent<Renderer>().material.color = Random.ColorHSV();
+    }
+
+    private Vector3 NewRandomPosition()     // Position aléatoire dans une sphère de rayon _rayonDeLaZoneDeSpawn,
+    {                                       // et qui a pour position celle de l'objet Spawner.
+
+        //   Vector3 localPosition = new Vector3(0, 0, 0);
+        //   Vector3 WorldPosition = transform.TransformPoint(localPosition);     Passe de la position locale à la position globale. Ca revient au même que :
+
+        return Random.insideUnitSphere * _rayonDeLaZoneDeSpawn + transform.position;
     }
 }
