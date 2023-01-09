@@ -49,7 +49,7 @@ public class Spawner : MonoBehaviour
         _tempGameObject = _objectsSpawned[0];
         _tempGameObject.transform.position = NewRandomPosition();
 
-        _objectsSpawned.Remove(_objectsSpawned[0]);
+        _objectsSpawned.RemoveAt(0);
 
         _objectsSpawned.Add(_tempGameObject);
     }

@@ -45,7 +45,7 @@ public class SpawnCube : MonoBehaviour
         _tempGameObject = _objectsSpawned[0];
         _tempGameObject.transform.position = positionObjectToSpawn;
 
-        _objectsSpawned.Remove(_objectsSpawned[0]);
+        _objectsSpawned.RemoveAt(0);
 
         _objectsSpawned.Add(_tempGameObject);
     }

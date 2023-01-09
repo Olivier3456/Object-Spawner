@@ -16,18 +16,18 @@ public class ObjectBehavior : MonoBehaviour
 
     void Start()
     {
-        _movement = SetMovementOfObject();
-        _rotation = SetRotationOfObject();     
+        _movement = SetObjectMovement();
+        _rotation = SetObjectRotation();     
     }
 
-    public Vector3 SetRotationOfObject()
+    public Vector3 SetObjectRotation()
     {
         float speed = Random.Range(_minRotationSpeed, _maxRotationSpeed);
         return new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * speed;
     }
 
 
-    public Vector3 SetMovementOfObject()
+    public Vector3 SetObjectMovement()
     {
         float speed = Random.Range(_minSpeed, _maxSpeed);
         return new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * speed;
