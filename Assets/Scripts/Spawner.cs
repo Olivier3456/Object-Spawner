@@ -15,6 +15,9 @@ public class Spawner : MonoBehaviour
     [SerializeField] private int _nombreMaxDObjets;
     private GameObject _tempGameObject;
 
+    
+    
+
 
     private float _time;
 
@@ -22,8 +25,11 @@ public class Spawner : MonoBehaviour
     {
         _nombreMaxDObjets--;
 
-        _centreDeLaZoneDeSpawn = transform;
+        _centreDeLaZoneDeSpawn = transform;       
     }
+
+    
+
 
 
     void Update()
@@ -31,7 +37,7 @@ public class Spawner : MonoBehaviour
         _time += Time.deltaTime;
 
         if (_time >= (1 / _nbreDObjetsParSeconde))
-        {        
+        {
             if (_objectsSpawned.Count > _nombreMaxDObjets)
             {
                 RelocateOldestObject();
@@ -44,7 +50,7 @@ public class Spawner : MonoBehaviour
             _time = 0;
         }
     }
-        
+
     private void RelocateOldestObject()
     {
         _tempGameObject = _objectsSpawned[_nombreMaxDObjets];
@@ -61,6 +67,7 @@ public class Spawner : MonoBehaviour
 
         Color newColor = new Color(Random.Range(0, 1.0f), Random.Range(0, 1.0f), Random.Range(0, 1.0f));
         _objectsSpawned[0].GetComponent<Renderer>().material.color = newColor;
+        _objectsSpawned[0].AddComponent<ObjectBehavior>();
     }
 
 

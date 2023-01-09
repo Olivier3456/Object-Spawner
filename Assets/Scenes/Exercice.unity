@@ -254,9 +254,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _nbreDObjetsParSeconde: 10
-  _prefabToSpawn: {fileID: 6265973446841704790, guid: 70798e239d0d0714a902482bbaa19c5d, type: 3}
-  _centreDeLaZoneDeSpawn: {fileID: 1046534612}
-  _rayonDeLaZoneDeSpawn: 10
+  _prefabToSpawn: {fileID: 1756918819057348377, guid: 2c0f3883d73269b458c272125f456aa0, type: 3}
+  _rayonDeLaZoneDeSpawn: 50
   _objectsSpawned: []
   _nombreMaxDObjets: 100
 --- !u!4 &1046534612
