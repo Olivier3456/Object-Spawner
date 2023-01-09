@@ -37,16 +37,16 @@ public class SpawnCube : MonoBehaviour
 
     private void InstantiateNewObject(Vector3 positionObjectToSpawn)
     {
-        _objectsSpawned.Insert(0, Instantiate(_prefabToSpawn, positionObjectToSpawn, Quaternion.identity));
+        _objectsSpawned.Add(Instantiate(_prefabToSpawn, positionObjectToSpawn, Quaternion.identity));
     }
 
     private void RelocateOldestObject(Vector3 positionObjectToSpawn)
     {
-        _tempGameObject = _objectsSpawned[_nombreMaxDObjets];
+        _tempGameObject = _objectsSpawned[0];
         _tempGameObject.transform.position = positionObjectToSpawn;
 
-        _objectsSpawned.Remove(_objectsSpawned[_nombreMaxDObjets]);
+        _objectsSpawned.Remove(_objectsSpawned[0]);
 
-        _objectsSpawned.Insert(0, _tempGameObject);
+        _objectsSpawned.Add(_tempGameObject);
     }
 }

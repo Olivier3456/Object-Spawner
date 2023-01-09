@@ -46,24 +46,24 @@ public class Spawner : MonoBehaviour
 
     private void RelocateOldestObject()
     {
-        _tempGameObject = _objectsSpawned[_nombreMaxDObjets];
+        _tempGameObject = _objectsSpawned[0];
         _tempGameObject.transform.position = NewRandomPosition();
 
-        _objectsSpawned.Remove(_objectsSpawned[_nombreMaxDObjets]);
+        _objectsSpawned.Remove(_objectsSpawned[0]);
 
-        _objectsSpawned.Insert(0, _tempGameObject);
+        _objectsSpawned.Add(_tempGameObject);
     }
 
-    private void InstantiateNewObject()
+    private void InstantiateNewObject()     // Avec couleur aléatoire.
     {
-        _objectsSpawned.Insert(0, Instantiate(_prefabToSpawn, NewRandomPosition(), Quaternion.identity));
+        _objectsSpawned.Add(Instantiate(_prefabToSpawn, NewRandomPosition(), Quaternion.identity));
 
         Color newColor = new Color(Random.Range(0, 1.0f), Random.Range(0, 1.0f), Random.Range(0, 1.0f));
-        _objectsSpawned[0].GetComponent<Renderer>().material.color = newColor;
-        _objectsSpawned[0].AddComponent<ObjectBehavior>();
+        _objectsSpawned[_objectsSpawned.Count - 1].GetComponent<Renderer>().material.color = newColor;
+        _objectsSpawned[_objectsSpawned.Count - 1].AddComponent<ObjectBehavior>();
     }
 
-    private Vector3 NewRandomPosition()
+    private Vector3 NewRandomPosition()     // Position aléatoire dans une sphère qui a pour position _centreDeLaZoneDeSpawn :
     {
         return Random.insideUnitSphere * _rayonDeLaZoneDeSpawn + _centreDeLaZoneDeSpawn.position;
     }

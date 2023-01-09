@@ -17,7 +17,7 @@ public class ObjectBehavior : MonoBehaviour
     void Start()
     {
         _movement = SetMovementOfObject();
-        _rotation = SetRotationOfObject();
+        _rotation = SetRotationOfObject();     
     }
 
     public Vector3 SetRotationOfObject()
