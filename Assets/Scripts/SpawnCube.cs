@@ -17,7 +17,6 @@ public class SpawnCube : MonoBehaviour
         _nombreMaxDObjets--;
     }
 
-
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -27,18 +26,27 @@ public class SpawnCube : MonoBehaviour
 
             if (_objectsSpawned.Count > _nombreMaxDObjets)
             {
-                _tempGameObject = _objectsSpawned[_nombreMaxDObjets];
-                _tempGameObject.transform.position = positionObjectToSpawn;
-
-                _objectsSpawned.Remove(_objectsSpawned[_nombreMaxDObjets]);
-
-                _objectsSpawned.Insert(0, _tempGameObject);
+                RelocateOldestObject(positionObjectToSpawn);
             }
             else
             {
-                _objectsSpawned.Insert(0, Instantiate(_prefabToSpawn, positionObjectToSpawn, Quaternion.identity));
+                InstantiateNewObject(positionObjectToSpawn);
             }
-            
         }
+    }
+
+    private void InstantiateNewObject(Vector3 positionObjectToSpawn)
+    {
+        _objectsSpawned.Insert(0, Instantiate(_prefabToSpawn, positionObjectToSpawn, Quaternion.identity));
+    }
+
+    private void RelocateOldestObject(Vector3 positionObjectToSpawn)
+    {
+        _tempGameObject = _objectsSpawned[_nombreMaxDObjets];
+        _tempGameObject.transform.position = positionObjectToSpawn;
+
+        _objectsSpawned.Remove(_objectsSpawned[_nombreMaxDObjets]);
+
+        _objectsSpawned.Insert(0, _tempGameObject);
     }
 }

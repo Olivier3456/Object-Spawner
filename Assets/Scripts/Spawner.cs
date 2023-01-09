@@ -14,11 +14,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] private List<GameObject> _objectsSpawned;
     [SerializeField] private int _nombreMaxDObjets;
     private GameObject _tempGameObject;
-
     
-    
-
-
     private float _time;
 
     void Start()
@@ -29,9 +25,6 @@ public class Spawner : MonoBehaviour
     }
 
     
-
-
-
     void Update()
     {
         _time += Time.deltaTime;
@@ -70,11 +63,8 @@ public class Spawner : MonoBehaviour
         _objectsSpawned[0].AddComponent<ObjectBehavior>();
     }
 
-
     private Vector3 NewRandomPosition()
     {
         return Random.insideUnitSphere * _rayonDeLaZoneDeSpawn + _centreDeLaZoneDeSpawn.position;
     }
-
-
 }
